@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список задач</title>
+    <link rel="icon" href="kozlov2024/135135.ico" type="kozlov2024/135135.ico">
+    <style>
+        .completed {
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        .cross {
+            cursor: pointer;
+        }
+
+        ul {
+            list-style-type: decimal;
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Мой список задач</h1>
+        <input type="text" id="newTask" placeholder="Добавить задачу...">
+        <button onclick="addTask()">Добавить задачу</button>
+        <button onclick="clearTasks()">Очистить задачи</button>
+        <ul id="taskList">
+
+        </ul>
+    </div>
+    <script>
+        let taskIndex = 1;
+
+        document.getElementById('taskList').addEventListener('click', function(e) {
+            if (e.target.classList.contains('cross')) {
+                e.target.parentElement.remove();
+            } else if (e.target.tagName === 'LI') {
+                e.target.classList.toggle('completed');
+            }
+        });
+
+        function addTask() {
+            const newTaskInput = document.getElementById('newTask');
+            const taskText = newTaskInput.value.trim();
+            if (taskText !== '') {
+                const taskItem = document.createElement('li');
+                taskItem.textContent = taskText;
+                taskItem.setAttribute('data-index', taskIndex);
+                taskItem.innerHTML += ' <span class="cross">❌</span>';
+                document.getElementById('taskList').appendChild(taskItem);
+                taskIndex++;
+                newTaskInput.value = '';
+            }
+        }
+
+        function clearTasks() {
+            document.getElementById('taskList').innerHTML = '';
+        }
+    </script>
+</body>
+</html>
