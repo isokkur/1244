@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список задач</title>
+    <link rel="icon" href="135135.ico" type="image/x-icon">
+    <style>
+       body {
+    font-family: Arial, sans-serif;
+    background-color: #fad8f1;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    transition: background-color 0.3s;
+}
+
+li:hover {
+    background-color: #f9f9f9;
+}
+
+button {
+    margin-top: 10px;
+    background-color: #4cacaf;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+button:hover {
+    background-color: #f37695; /* Любой другой цвет по вашему выбору */
+}
+
+input[type="text"], button {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 600px) {
+    button {
+        display: inline-block;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Мой список задач</h1>
+        <input type="text" id="newTask" placeholder="Добавить задачу...">
+        <button onclick="addTask()">Добавить задачу</button>
+        <button onclick="clearTasks()">Очистить задачи</button>
+        <ul id="taskList">
+
+        </ul>
+    </div>
+    <script>
+        let taskIndex = 1;
+
+        document.getElementById('taskList').addEventListener('click', function(e) {
+            if (e.target.classList.contains('cross')) {
+                e.target.parentElement.remove();
+            } else if (e.target.tagName === 'LI') {
+                e.target.classList.toggle('completed');
+            }
+        });
+
+        function addTask() {
+            const newTaskInput = document.getElementById('newTask');
+            const taskText = newTaskInput.value.trim();
+            if (taskText !== '') {
+                const taskItem = document.createElement('li');
+                taskItem.textContent = taskText;
+                taskItem.setAttribute('data-index', taskIndex);
+                taskItem.innerHTML += ' <span class="cross">❌</span>';
+                document.getElementById('taskList').appendChild(taskItem);
+                taskIndex++;
+                newTaskInput.value = '';
+            }
+        }
+
+        function clearTasks() {
+            document.getElementById('taskList').innerHTML = '';
+        }
+    </script>
+</body>
+</html>
