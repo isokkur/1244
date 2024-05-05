@@ -1,0 +1,16 @@
+import React from 'react';
+
+const Square = ({ n }) => {
+    const squareOfN = n * n;
+
+    return (
+        <div>
+            <p>{squareOfN}</p>
+        </div>
+    );
+}
+
+// Пример использования компонента
+<Square n={3} />
+
+export default Square;
